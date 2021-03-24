@@ -4,42 +4,16 @@
 
 int main() {
 	printf("Enter the bit sequences\n");
-	int number = get_int_number_than_greater_one();
-	int number_two = number;
-	int multiplier = 256;
-	int multiplier_two = 1;
+	int number = get_int_number_than_greater_min_and_less_max(0, 255);
 	int result = 0;
-	int result_two = 0;
+	int debug = 256;
 	
 	_asm {
-		mov ecx, 8
-		mov ebx, 2
+		mov ecx, 7
+		mov ebx, 0
+		mov eax, number
 
 			point_one:
-
-				mov eax, number
-				mov edx, 0
-				div ebx;
-				imul edx, multiplier
-				add result, edx
-				mov number, eax
-				mov eax, multiplier
-				mov edx, 0
-				div ebx;
-				mov multiplier, eax
-				mov eax, number
-
-			loop point_one 
-	}
-	
-	printf("Result: %d\n", result); 
-	
-	_asm {
-		mov ecx, 8
-		mov ebx, 0
-		mov eax, number_two
-
-			point_two:
 
 				mov edx, eax 
 				and edx, 00000001b
@@ -47,10 +21,12 @@ int main() {
 				ror eax, 1
 				rol ebx, 1
 
-			loop point_two
+			loop point_one
 
-		mov result_two, ebx 
+		mov eax, ebx
+		div debug
+		mov result, edx
 	}
 
-	printf("Result: %d", result_two);
+	printf("Result: %d", result);
 }
