@@ -22,7 +22,10 @@ int main() {
 				rol ebx, 1
 
 			loop point_one
-
+		
+		mov edx, eax 
+		and edx, 00000001b
+		or ebx, edx
 		mov eax, ebx
 		div debug
 		mov result, edx
